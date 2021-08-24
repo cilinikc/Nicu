@@ -16,7 +16,7 @@ int main() {
   const pi = 3.141592;
   continu = "y";
   while (continu == "y") {
-    cout << "Tip profil me=metal sheet ro=round bar cor=cornier\n unp ipe inp ";
+    cout << "Type pieces me=metal sheet, ro=round bar, an=angle\n unp ipe inp ";
     cin >> name;
     weight=0;
     width=0;
@@ -118,7 +118,7 @@ int main() {
       pieces = weight / length / coefficient;
       cout << "Pieces " << pieces;
     }
-    if (name == "cor") {
+    if (name == "an") {
       cout << "Width ";
       cin >> width;
       cout << "Thickness ";
