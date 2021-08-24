@@ -10,7 +10,7 @@
 
 using namespace std;
 int main() {
-  ofstream file1;
+  fstream file1;
   int number1, number2, result, result1, resultin, j, upto, many, sec;
   string operation, contin, st;
   time_t now = time(0);
@@ -35,7 +35,7 @@ int main() {
           cout << setw(4) << number1 << endl << "+" << setw(3) << number2 << endl << "=";
           cin >> resultin;
           result = number1 + number2;
-          file1 << number1 << "+" << number2 << "=" << resultin;
+          file1 << number1 << "+" << number2 << "=" << resultin << " ";
 
         }
       if (operation == "d") {
@@ -43,25 +43,25 @@ int main() {
         cout << result1 << ":" << number2 << "=";
         cin >> resultin;
         result = number1;
-        file1 << result1 << ":" << number2 << "=" << resultin;
+        file1 << result1 << ":" << number2 << "=" << resultin << " ";
 
       }
       if (operation == "m") {
         cout << number1 << "x" << number2 << "=";
         cin >> resultin;
         result = number1 * number2;
-        file1 << number1 << "x" << number2 << "=" <<resultin;
+        file1 << number1 << "x" << number2 << "=" << resultin << " ";
 
       }
       if (operation == "s") {
         if (number1 > number2) {
-          file1 << number1 << "-" << number2 << "=" << resultin;
+          file1 << number1 << "-" << number2 << "=" << resultin << " ";
           cout << setw(4) << number1 << endl << "-" << setw(3) << number2 << endl << "=";
           cin >> resultin;
         } else {
           cout << setw(4) << number2 << endl << "-" << setw(3) << number1 << endl << "=";
           cin >> resultin;
-          file1 << number2 << "-" << number1 << "=" << resultin;
+          file1 << number2 << "-" << number1 << "=" << resultin << " ";
         }
         result = abs(number1 - number2);
       }
@@ -72,18 +72,16 @@ int main() {
       }
 
       if (resultin == result) {
-        file1 << "ok";
+        file1 << "ok" << " ";
         cout << "ok\n";
       } else {
-        file1 << "wrong it had to " << result;
-        cout << "wrong it had to " << result << endl;
+        file1 << "wrong it had to be " << result << " ";
+        cout << "wrong it had to be " << result << endl;
       }
-      file1.close();
     }
-    cout << "\nanother operation? d/n ";
+    cout << "\nAnother operation? y/n ";
     cin >> contin;
   }
-  file1.open("/storage/emulated/0/TextEditor/operatii.txt ");
   file1 << data1;
   file1.close();
   return 0;
