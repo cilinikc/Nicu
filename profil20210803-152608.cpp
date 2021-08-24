@@ -1,320 +1,297 @@
-#include <iostream> 
+#include <iostream>
+
 #include <string>
+
 #include <stdio.h>
+
 using namespace std;
-FILE *fisier; 
- int main() { 
-int n, fi, L, h, w; 
-double vol, pi, g, c, b, gr, l, k;
-string nu, d;
-time_t now=time(0);
-char *dt=ctime(&now) ;
-pi=3.141592;
-c=2.466/0.0012566;// coeficient *vol=greutate pe metru liniar
+FILE * file1;
+int main() {
+  int diameter, length, thickness;
+  double vol, pieces, weight, width, coefficient;
+  string name, continu;
+  time_t now = time(0);
+  char * data1 = ctime( & now);
+  double
+  const pi = 3.141592;
+  continu = "d";
+  while (continu == "d") {
+    cout << "Tip profil me=metal sheet ro=round bar cor=cornier\n unp ipe inp ";
+    cin >> name;
+    if (name == "inp") {
+      cout << " Width ";
+      cin >> width;
+      cout << "  Total weight kg ";
+      cin >> weight;
+      cout << "Length ";
+      cin >> length;
+      if (width == 80)
+        coefficient = 6.1;
+      if (width == 100)
+        coefficient = 8.5;
+      if (width == 120)
+        coefficient = 11.5;
+      if (width == 140)
+        coefficient = 14.7;
+      if (width == 160)
+        coefficient = 18.5;
+      if (width == 180)
+        coefficient = 22.5;
+      if (width == 200)
+        coefficient = 27;
+      if (width == 240)
+        coefficient = 37;
+      if (width == 260)
+        coefficient = 43;
+      if (width == 280)
+        coefficient = 49;
+      if (width == 300)
+        coefficient = 56;
+      pieces = weight / length / coefficient;
+      cout << "Pieces " << pieces;
+    }
+    if (name == "ipe") {
+      cout << " Width ";
+      cin >> width;
+      cout << " Total weight ";
+      cin >> weight;
+      cout << "Length ";
+      cin >> length;
+      if (width == 80)
+        coefficient = 6.2;
+      if (width == 100)
+        coefficient = 8.3;
+      if (width == 120)
+        coefficient = 10.7;
+      if (width == 140)
+        coefficient = 13.2;
+      if (width == 160)
+        coefficient = 16.2;
+      if (width == 180)
+        coefficient = 19.3;
+      if (width == 200)
+        coefficient = 23;
+      if (width == 220)
+        coefficient = 26.9;
+      if (width == 240)
+        coefficient = 31.5;
+      if (width == 270)
+        coefficient = 37;
+      if (width == 300)
+        coefficient = 43.3;
+      pieces = weight / length / coefficient;
+      cout << "Pieces " << pieces;
+    }
+    if (name == "unp") {
+      cout << " Width ";
+      cin >> width;
+      cout << " Total weight ";
+      cin >> gr;
+      cout << "Length ";
+      cin >> length;
+      if (width == 80)
+        coefficient = 8.9;
+      if (width == 100)
+        coefficient = 10.9;
+      if (width == 120)
+        coefficient = 13.7;
+      if (width == 140)
+        coefficient = 16.4;
+      if (width == 160)
+        coefficient = 19.3;
+      if (width == 180)
+        coefficient = 22.5;
+      if (width == 200)
+        coefficient = 26;
+      if (width == 220)
+        coefficient = 30;
+      if (width == 240)
+        coefficient = 33.2;
+      if (width == 300)
+        coefficient = 46.2;
+      pieces = weight / length / coefficient;
+      cout << "Pieces " << pieces;
+    }
+    if (name == "cor") {
+      cout << "Width ";
+      cin >> width;
+      cout << "Thickness ";
+      cin >> thickness;
+      cout << "Total weight";
+      cin >> weight;
+      cout << "Length ";
+      cin >> length;
+      if (width == 20)
+        coefficient = 0.884;
+      if (width == 25) {
+        if (thickness == 3)
+          coefficient = 1.123;
+        if (thickness == 4)
+          coefficient = 1.466;
+        if (thickness == 5)
+          coefficient = 1.793;
+      }
+      if (width == 30) {
+        if (thickness == 3)
+          coefficient = 1.362;
+        if (thickness == 4)
+          coefficient = 1.785;
+        if (thickness == 5)
+          coefficient = 2.191;
+      }
+      if (width == 35)
+        if (thickness == 4)
+          coefficient = 2.103;
+      if (width == 40) {
+        if (thickness == 4)
+          coefficient = 2.422;
+        if (thickness == 5)
+          coefficient = 2.988;
+        if (thickness == 6)
+          coefficient = 3.538;
+      }
+      if (width == 45) {
+        if (thickness == 4)
+          coefficient = 2.741;
+        if (thickness == 5)
+          coefficient = 3.386;
+        if (thickness == 6)
+          coefficient = 4.016;
+      }
+      if (width == 50) {
+        if (thickness == 5)
+          coefficient = 3.785;
+        if (thickness == 6)
+          coefficient = 4.494;
+        if (thickness == 7)
+          coefficient = 5.187;
+      }
+      if (width == 55) {
+        if (thickness == 5)
+          coefficient = 4.183;
+        if (thickness == 6)
+          coefficient = 4.972;
+      }
+      if (width == 60) {
+        if (thickness == 5)
+          coefficient = 4.581;
+        if (thickness == 6)
+          coefficient = 5.45;
+        if (thickness == 8)
+          coefficient = 7.139;
+        if (thickness == 10)
+          coefficient = 8.765;
+      }
+      if (width == 70) {
+        if (thickness == 6)
+          coefficient = 6.406;
+        if (thickness == 7)
+          coefficient = 7.31;
+        if (thickness == 8)
+          coefficient = 8.414;
+        if (thickness == 10)
+          coefficient = 10.358;
+      }
+      if (width == 80) {
+        if (thickness == 6)
+          coefficient = 7.362;
+        if (thickness == 8)
+          coefficient = 9.689;
+        if (thickness == 10)
+          coefficient = 11.952;
+      }
+      if (width == 90) {
+        if (thickness == 6)
+          coefficient = 8.318;
+        if (thickness == 8)
+          coefficient = 10.964;
+        if (thickness == 10)
+          coefficient = 13.545;
+        if (thickness == 12)
+          coefficient = 16.063;
+      }
+      if (width == 100) {
+        if (thickness == 8)
+          coefficient = 12.238;
+        if (thickness == 10)
+          coefficient = 14.915;
+        if (thickness == 12)
+          coefficient = 17.975;
+        if (thickness == 15)
+          coefficient = 22.111;
+      }
+      if (width == 120) {
+        if (thickness == 8)
+          coefficient = 14.788;
+        if (thickness == 10)
+          coefficient = 18.326;
+        if (thickness == 12)
+          coefficient = 21.8;
+        if (thickness == 15)
+          coefficient = 26.891;
+      }
+      if (width == 150) {
+        if (thickness == 10)
+          coefficient = 23.106;
+        if (thickness == 12)
+          coefficient = 27.537;
+        if (thickness == 15)
+          coefficient = 34.062;
+        if (thickness == 18)
+          coefficient = 40.444;
+      }
+      if (width == 200) {
+        if (thickness == 16)
+          coefficient = 48.954;
+        if (thickness == 18)
+          coefficient = 54.786;
+        if (thickness == 20)
+          coefficient = 60.555;
+        if (thickness == 24)
+          coefficient = 71.901;
+      }
+      pieces = weight / coefficient / length;
+      cout << "Pieces " << pieces;
+    }
+    if (name == "me") {
+      cout << "Length m ";
+      cin >> length;
+      cout << "Width m ";
+      cin >> width;
+      cout << "Thickness mm ";
+      cin >> thickness;
+      cout << "Total weight kg ";
+      cin >> weight;
+      pieces = weight / ((8000 * width * length * h) / 1000);
+      cout << "Pieces " << pieces;
+    }
+    if (name == "ro") {
+      cout << "Diameter ";
+      cin >> diameter;
+      cout << "Length bar? ";
+      cin >> length;
+      cout << "Total weight? ";
+      cin >> weight;
+      vol = pi * fi * fi / 1000000;
+      coefficient = vol * (2.466 / 0.0012566);
+      pieces = (weight / coefficient) / length;
+      cout << "Bar pieces " << pieces << " \n  kg/m " << coefficient;
+    }
+    file1 = fopen("/storage/emulated/0/TextEditor/new.txt ", "a");
+    fprintf(file1, "\n%s", name);
+    fprintf(file1, " Length %d", length);
+    fprintf(file1, " Thickness %d", thickness);
+    fprintf(file1, " Width %d", width);
+    fprintf(file1, " Pieces %5.2lf", pieces);
+    fprintf(file1, " kg/m %5.2lf", coefficient);
+    fprintf(file1, " Weight %5.2lf", weight);
+    fclose(file1);
 
-d="d" ;
-while (d=="d") {
-l=0;
-L=0;
-w=0;
-k=0;
-h=0;
-cout <<"Tip profil ta=tabla fi=rotund cor=cornier\n unp ipe inp " ;
-cin >> nu; 
-if (nu=="inp") 
-{
-cout <<" de " ;
-cin >>w;
-cout <<" greutate totala " ;
-cin >>gr;
-cout <<"lungime " ;
-cin >>l;
-if(w==80)
-k=6.1;
-if(w==100)
-k=8.5;
-if(w==120)
-k=11.5;
-if(w==140)
-k=14.7;
-if(w==160)
-k=18.5;
-if(w==180)
-k=22.5;
-if(w==200)
-k=27;
-if(w==240)
-k=37;
-if(w==260)
-k=43;
-if(w==280)
-k=49;
-if(w==300)
-k=56;
-g=gr/l/k;
-cout <<"bucati " <<g;
-}
-if (nu=="ipe") 
-{
-cout <<" de " ;
-cin >>w;
-cout <<" greutate totala " ;
-cin >>gr;
-cout <<"lungime " ;
-cin >>l;
-if(w==80)
-k=6.2;
-if(w==100)
-k=8.3;
-if(w==120)
-k=10.7;
-if(w==140)
-k=13.2;
-if(w==160)
-k=16.2;
-if(w==180)
-k=19.3;
-if(w==200)
-k=23;
-if(w==220)
-k=26.9;
-if(w==240)
-k=31.5;
-if(w==270)
-k=37;
-if(w==300)
-k=43.3;
-g=gr/l/k;
-cout <<"bucati " <<g;
-}
-if (nu=="unp") 
-{
-cout <<" de " ;
-cin >>w;
-cout <<" greutate totala " ;
-cin >>gr;
-cout <<"lungime " ;
-cin >>l;
-if(w==80)
-k=8.9;
-if(w==100)
-k=10.9;
-if(w==120)
-k=13.7;
-if(w==140)
-k=16.4;
-if(w==160)
-k=19.3;
-if(w==180)
-k=22.5;
-if(w==200)
-k=26;
-if(w==220)
-k=30;
-if(w==240)
-k=33.2;
-if(w==300)
-k=46.2;
-g=gr/l/k;
-cout <<"bucati " <<g;
-}
-if (nu=="cor") {
-cout <<"latura " ;
-cin >>w;
-cout <<"grosime " ;
-cin >>h;
-cout <<"greutate totala" ;
-cin >>gr;
-cout <<"lungime " ;
-cin >>l;
-if (w==20)
-k=0.884;
-if(w==25)
-{
-if(h==3)
-k=1.123;
-if(h==4)
-k=1.466;
-if(h==5)
-k=1.793;
-}
-if(w==30)
-{
-if(h==3)
-k=1.362;
-if(h==4)
-k=1.785;
-if(h==5)
-k=2.191;
-}
-if(w==35)
-if(h==4)
-k=2.103;
-if(w==40)
-{
-if(h==4)
-k=2.422;
-if(h==5)
-k=2.988;
-if(h==6)
-k=3.538;
-}
-if(w==45)
-{
-if(h==4)
-k=2.741;
-if(h==5)
-k=3.386;
-if(h==6)
-k=4.016;
-}
-if(w==50)
-{
-if(h==5)
-k=3.785;
-if(h==6)
-k=4.494;
-if(h==7)
-k=5.187;
-}
-if(w==55)
-{
-if(h==5)
-k=4.183;
-if(h==6)
-k=4.972;
-}
-if(w==60)
-{
-if(h==5)
-k=4.581;
-if(h==6)
-k=5.45;
-if(h==8)
-k=7.139;
-if(h==10)
-k=8.765;
-}
-if(w==70)
-{
-if(h==6)
-k=6.406;
-if(h==7)
-k=7.31;
-if(h==8)
-k=8.414;
-if(h==10)
-k=10.358;
-}
-if(w==80)
-{
-if(h==6)
-k=7.362;
-if(h==8)
-k=9.689;
-if(h==10)
-k=11.952;
-}
-if(w==90)
-{
-if(h==6)
-k=8.318;
-if(h==8)
-k=10.964;
-if(h==10)
-k=13.545;
-if(h==12)
-k=16.063;
-}
-if(w==100)
-{
-if(h==8)
-k=12.238;
-if(h==10)
-k=14.915;
-if(h==12)
-k=17.975;
-if(h==15)
-k=22.111;
-}
-if(w==120)
-{
-if(h==8)
-k=14.788;
-if(h==10)
-k=18.326;
-if(h==12)
-k=21.8;
-if(h==15)
-k=26.891;
-}
-if(w==150)
-{
-if(h==10)
-k=23.106;
-if(h==12)
-k=27.537;
-if(h==15)
-k=34.062;
-if(h==18)
-k=40.444;
-}
-if(w==200)
-{
-if(h==16)
-k=48.954;
-if(h==18)
-k=54.786;
-if(h==20)
-k=60.555;
-if(h==24)
-k=71.901;
-}
-g=gr/k/l;
-cout <<"bucati " <<g<<gr<<k<<l;
-}
-if (nu=="ta") 
-{
-cout <<"lungime m " ;
-cin >>L;
-cout <<"lățime m " ;
-cin >>l;
-cout <<"grosime mm " ;
-cin >>h;
-cout <<"greutate totala kg " ;
-cin >>gr;
-g=gr/((8000*l*L*h) /1000) ;
-cout <<"bucăți " <<g;
-}
-if (nu=="fi") 
-{
-cout<< "de ";
-cin >> fi;
-cout <<"L bara? ";
-cin >>l;
-cout <<"greutate totala? ";
-cin >>gr;
-vol=pi*fi*fi/1000000;
-k=vol*c;
-g=(gr/(vol*c)) /l;
-cout << "nr bare " << g <<" \n  kg/m " <<k ;
-}
-fisier=fopen("/storage/emulated/0/TextEditor/new.txt ", "a") ;
-fprintf(fisier,"\n%s", nu) ;
-fprintf(fisier, " L %d" , L) ;
-fprintf(fisier , " l %5.0lf" , l) ;
-fprintf(fisier, " h %d" , h) ;
- fprintf(fisier, " w %d" , w) ;
-fprintf(fisier, " buc %5.2lf", g) ; 
- fprintf(fisier, " kg/m %5.2lf" , k) ; 
-fprintf(fisier, " gr %5.2lf" , gr) ;
-fclose(fisier);
-
-cout <<"\nContinuati?(d/n)";
-cin >>d;
-}
- fisier=fopen("/storage/emulated/0/TextEditor/new.txt ", "a") ;
-fprintf(fisier,"\n%s", dt) ;
-fclose(fisier) ;
-return 0;
+    cout << "\nContinue?(y/n)";
+    cin >> continu;
+  }
+  fisier = fopen("/storage/emulated/0/TextEditor/new.txt ", "a");
+  fprintf(fisier, "\n%s", data1);
+  fclose(fisier);
+  return 0;
 }
