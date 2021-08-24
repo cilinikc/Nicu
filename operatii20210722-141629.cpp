@@ -35,7 +35,7 @@ int main() {
           cout << setw(4) << number1 << endl << "+" << setw(3) << number2 << endl << "=";
           cin >> resultin;
           result = number1 + number2;
-          file1 << number1 << "+" << number2 << "=" << r;
+          file1 << number1 << "+" << number2 << "=" << resultin;
 
         }
       if (operation == "d") {
@@ -43,25 +43,25 @@ int main() {
         cout << result1 << ":" << number2 << "=";
         cin >> resultin;
         result = number1;
-        file1 << result1 << ":" << number2 << "=" << r;
+        file1 << result1 << ":" << number2 << "=" << resultin;
 
       }
       if (operation == "m") {
         cout << number1 << "x" << number2 << "=";
         cin >> resultin;
         result = number1 * number2;
-        file1 << number1 << "x" << number2 << "=" << r;
+        file1 << number1 << "x" << number2 << "=" <<resultin;
 
       }
       if (operation == "s") {
-        if (a > b) {
-          file1 << number1 << "-" << number2 << "=" << r;
+        if (number1 > number2) {
+          file1 << number1 << "-" << number2 << "=" << resultin;
           cout << setw(4) << number1 << endl << "-" << setw(3) << number2 << endl << "=";
           cin >> resultin;
         } else {
           cout << setw(4) << number2 << endl << "-" << setw(3) << number1 << endl << "=";
           cin >> resultin;
-          file1 << number2 << "-" << number1 << "=" << r;
+          file1 << number2 << "-" << number1 << "=" << resultin;
         }
         result = abs(number1 - number2);
       }
