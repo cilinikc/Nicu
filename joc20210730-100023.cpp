@@ -9,14 +9,14 @@ int main() {
   generate = rand() % 100 + 1;
   contour = 1;
   do {
-    cout << "Ghicește numarul ";
+    cout << "Guess the number: ";
     cin >> inputx;
     if (generate < inputx)
-      cout << "Prea mare. Mai încearcă " << endl;
+      cout << "Too big. Keep trying " << endl;
     else if (generate > inputx)
-      cout << "Prea mic. Mai încearcă " << endl;
+      cout << "Too little. Keep trying " << endl;
     else
-      cout << "Felicitări ai ghicit din " << contour << " încercări";
+      cout << "Congratulation you did it in " << contour << " mooves";
     contour++;
   }
   while (generate != inputx);
