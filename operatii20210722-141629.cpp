@@ -76,11 +76,11 @@ int main() {
         cout << "ok\n";
       } else {
         file1 << "wrong it had to " << result;
-        cout << "gresit trebuia " << result << endl;
+        cout << "wrong it had to " << result << endl;
       }
       file1.close();
     }
-    cout << "\nalta operatie? d/n ";
+    cout << "\nanother operation? d/n ";
     cin >> contin;
   }
   file1.open("/storage/emulated/0/TextEditor/operatii.txt ");
