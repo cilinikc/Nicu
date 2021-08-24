@@ -14,10 +14,16 @@ int main() {
   char * data1 = ctime( & now);
   double
   const pi = 3.141592;
-  continu = "d";
-  while (continu == "d") {
+  continu = "y";
+  while (continu == "y") {
     cout << "Tip profil me=metal sheet ro=round bar cor=cornier\n unp ipe inp ";
     cin >> name;
+    weight=0;
+    width=0;
+    coefficient=0;
+    length=0;
+    thickness=0;
+    
     if (name == "inp") {
       cout << " Width ";
       cin >> width;
@@ -86,7 +92,7 @@ int main() {
       cout << " Width ";
       cin >> width;
       cout << " Total weight ";
-      cin >> gr;
+      cin >> weight;
       cout << "Length ";
       cin >> length;
       if (width == 80)
@@ -262,7 +268,7 @@ int main() {
       cin >> thickness;
       cout << "Total weight kg ";
       cin >> weight;
-      pieces = weight / ((8000 * width * length * h) / 1000);
+      pieces = weight / ((8000 * width * length * thickness) / 1000);
       cout << "Pieces " << pieces;
     }
     if (name == "ro") {
@@ -272,7 +278,7 @@ int main() {
       cin >> length;
       cout << "Total weight? ";
       cin >> weight;
-      vol = pi * fi * fi / 1000000;
+      vol = pi * diameter * diameter / 1000000;
       coefficient = vol * (2.466 / 0.0012566);
       pieces = (weight / coefficient) / length;
       cout << "Bar pieces " << pieces << " \n  kg/m " << coefficient;
@@ -290,8 +296,8 @@ int main() {
     cout << "\nContinue?(y/n)";
     cin >> continu;
   }
-  fisier = fopen("/storage/emulated/0/TextEditor/new.txt ", "a");
-  fprintf(fisier, "\n%s", data1);
-  fclose(fisier);
+  file1 = fopen("/storage/emulated/0/TextEditor/new.txt ", "a");
+  fprintf(file1, "\n%s", data1);
+  fclose(file1);
   return 0;
 }
