@@ -19,7 +19,6 @@ int main() {
       cout << "Congratulation you did it in " << contour << " mooves";
     contour++;
   }
-
   while (generate != inputx);
   return 0;
 }
