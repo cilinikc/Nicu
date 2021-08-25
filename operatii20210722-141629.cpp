@@ -81,6 +81,7 @@ int main() {
     }
     cout << "\nAnother operation? y/n ";
     cin >> contin;
+
   }
   file1 << data1;
   file1.close();
