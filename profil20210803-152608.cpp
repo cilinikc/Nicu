@@ -8,21 +8,20 @@ using namespace std;
 FILE * file1;
 int main() {
   int diameter, length, thickness;
-  double vol, pieces, weight, width, coefficient;
+  double pi, vol, pieces, weight, width, coefficient;
   string name, continu;
   time_t now = time(0);
   char * data1 = ctime( & now);
-  double
-  const pi = 3.141592;
+  pi = 3.141592;
   continu = "y";
   while (continu == "y") {
     cout << "Type pieces me=metal sheet, ro=round bar, an=angle\n unp ipe inp ";
     cin >> name;
-    weight=0;
-    width=0;
-    coefficient=0;
-    length=0;
-    thickness=0;
+    weight = 0;
+    width = 0;
+    coefficient = 0;
+    length = 0;
+    thickness = 0;
     
     if (name == "inp") {
       cout << " Width ";
@@ -295,6 +294,7 @@ int main() {
 
     cout << "\nContinue?(y/n)";
     cin >> continu;
+
   }
   file1 = fopen("/storage/emulated/0/TextEditor/new.txt ", "a");
   fprintf(file1, "\n%s", data1);
