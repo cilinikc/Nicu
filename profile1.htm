@@ -1,0 +1,216 @@
+<html>
+    <head>
+        <title>JavaScript sample code</title>
+    </head>
+    <body>
+        <h1>My Sample Code</h1>
+        <input type="checkbox" id="metalsheet" onclick="metalsheet()" />
+        <label for="metal sheet ">Metal Sheet </label>
+        <input type="checkbox" id="roundbar" onclick="roundbar()" />
+        <label for="round bar ">Round Bar </label>
+        <input type="checkbox" id="angle" onclick="angle()" />
+        <label for="angle">Profile Angle</label><br />
+        <input type="checkbox" id="unp" onclick="unp()" />
+        <label for="unp">Profile UNP</label>
+        <input type="checkbox" id="ipe" onclick="ipe()" />
+        <label for="ipe">Profile IPE</label>
+        <input type="checkbox" id="inp" onclick="inp()" />
+        <label for="inp">Profile INP</label><br />
+        <p id="demo"></p>
+
+        <script language="JavaScript" type="text/javascript">
+            
+            var diameter, length, thickness, vol, pieces, weight,
+    width, scrie;
+const pi = 3.141592;
+scrie = document.getElementById('demo');
+
+function inp() {
+    const coefficient = {
+        80: 6.1,
+        100: 8.5,
+        120: 11.5,
+        140: 14.7,
+        160: 18.5,
+        180: 22.5,
+        200: 27,
+        240: 37,
+        260: 43,
+        280: 49,
+        300: 56
+    };
+    width = prompt(" Width ");
+    weight = prompt("  Total weight kg ");
+    length = prompt("Length ");
+    pieces = weight / length / coefficient[width];
+    alert("Pieces " + pieces);
+    scrie.innerHTML += 'Profile INP Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
+    document.getElementById('inp').checked = false;
+}
+
+function ipe() {
+    const coefficient = {
+        80: 6.2,
+        100: 8.3,
+        120: 10.7,
+        140: 13.2,
+        160: 16.2,
+        180: 19.3,
+        200: 23,
+        220: 26.9,
+        240: 31.5,
+        270: 37,
+        300: 43.3
+    };
+    width = prompt(" Width ");
+    weight = prompt(" Total weight ");
+    length = prompt("Length ");
+    pieces = weight / length / coefficient[width];
+    alert("Pieces " + pieces);
+    scrie.innerHTML += 'Profile IPE Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
+    document.getElementById('ipe').checked = false;
+}
+
+function unp() {
+    const coefficient = {
+        80: 8.9,
+        100: 10.9,
+        120: 13.7,
+        140: 16.4,
+        160: 19.3,
+        180: 22.5,
+        200: 26,
+        220: 30,
+        240: 33.2,
+        300: 46.2
+    };
+    width = prompt(" Width ");
+    weight = prompt("  Total weight kg ");
+    length = prompt("Length ");
+    pieces = weight / length / coefficient[width];
+    alert("Pieces " + pieces);
+    scrie.innerHTML += 'Profile UNP Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
+    document.getElementById('unp').checked = false;
+}
+
+function angle() {
+    const coefficient = {
+        20: {
+            3: 0.884
+        },
+        25: {
+            3: 1.123,
+            4: 1.466,
+            5: 1.793
+        },
+        30: {
+            3: 1.362,
+            4: 1.785,
+            5: 2.191
+        },
+        35: {
+            4: 2.103
+        },
+        40: {
+            4: 2.422,
+            5: 2.988,
+            6: 3.538
+        },
+        45: {
+            4: 2.741,
+            5: 3.386,
+            6: 4.016
+        },
+        50: {
+            5: 3.785,
+            6: 4.494,
+            7: 5.187
+        },
+        55: {
+            5: 4.183,
+            6: 4.972
+        },
+        60: {
+            5: 4.581,
+            6: 5.45,
+            8: 7.139,
+            10: 8.765
+        },
+        70: {
+            6: 6.406,
+            7: 7.31,
+            8: 8.414,
+            10: 10.358
+        },
+        80: {
+            6: 7.362,
+            8: 9.689,
+            10: 11.952
+        },
+        90: {
+            6: 8.318,
+            8: 10.964,
+            10: 13.545,
+            12: 16.063
+        },
+        100: {
+            8: 12.238,
+            10: 14.915,
+            12: 17.975,
+            15: 22.111
+        },
+        120: {
+            8: 14.788,
+            10: 18.326,
+            12: 21.8,
+            15: 26.891
+        },
+        150: {
+            10: 23.106,
+            12: 27.537,
+            15: 34.062,
+            18: 40.444
+        },
+        200: {
+            16: 48.954,
+            18: 54.786,
+            20: 60.555,
+            24: 71.901
+        }
+    };
+    width = prompt(" Width ");
+    length = prompt(" Length ");
+    thickness = prompt(" Thickness ");
+    weight = prompt("  Total weight kg ");
+    pieces = weight / coefficient[width][thickness] / length;
+    alert("Pieces " + pieces);
+    scrie.innerHTML += 'Profile Angle Total weight kg=' + weight + " Width=" + width + " Length=" + length + 'Thickness=' + thickness + " Pieces=" + pieces + '<br>';
+    document.getElementById('angle').checked = false;
+}
+
+function metalsheet() {
+    length = prompt("Length ");
+    width = prompt(" Width ");
+    thickness = prompt(" Thickness ");
+    weight = prompt("  Total weight kg ");
+    pieces = weight / ((8000 * width * length * thickness) / 1000);
+    alert("Pieces " + pieces);
+    scrie.innerHTML += 'Metal Sheet Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Thickness=" + thickness + " Pieces=" + pieces + '<br>';
+    document.getElementById('metalsheet').checked = false;
+}
+
+function roundbar() {
+    let coefficient;
+    diameter = prompt("  Diameter ");
+    length = prompt("Length ");
+    weight = prompt("  Total weight kg ");
+    vol = pi * diameter * diameter / 1000000;
+    coefficient = vol * (2.466 / 0.0012566);
+    pieces = (weight / coefficient) / length;
+    alert("Bar pieces " + pieces);
+    scrie.innerHTML += 'Round Bar Total weight kg=' + weight + " Length=" + length + " Diameter=" + diameter + " Pieces=" + pieces + '<br>';
+    document.getElementById('roundbar').checked = false;
+}
+        </script>
+    </body>
+</html>
