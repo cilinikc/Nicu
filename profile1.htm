@@ -1,30 +1,46 @@
 <html>
     <head>
         <title>JavaScript sample code</title>
+        <style >
+        	
+            body {	background-color:brown}
+        	label { color:brown ;
+                        background-color:orange }
+            select { color:brown ;
+                        background-color;yellow;  }
+            input {color:blue;
+                        background-color:yellow;}      
+                 
+        </style >
     </head>
     <body>
-        <h1>Calculation Metal Profile</h1>
-        <input type="radio" id="roundbar" onclick="roundbarForm()" name="profil"/>
+        <h1 style="color:green" >Calculation Metal Profile</h1>
+        <input type="radio" id="roundbar" onclick="ROUNDBAR.drawForm()" name="profil"/>
         <label for="roundbar ">Round Bar </label>
-        <input type="radio" id="metalsheet" onclick="metalsheetForm()" name="profil"/>
+        <input type="radio" id="metalsheet" onclick="METALSHEET.drawForm()" name="profil"/>
         <label for="metalsheet">Metal Sheet</label>
-        <input type="radio" id="angle" onclick="angleForm()" name="profil" />
-        <label for="angle">Profile Angle</label><br />
-        <input type="radio" id="inp" onclick="inpForm()" name="profil"/>
+        <input type="radio" id="angle" onclick="ANGLE.drawForm()" name="profil" />
+        <label for="angle">Profile Angle</label><br /><br />
+        
+		
+	<input type="radio" id="inp" onclick="INP.drawForm()" name="profil"/>
         <label for="inp">Profile INP</label>
-        <input type="radio" id="ipe" onclick="ipeForm()" name="profil"/>
+        <input type="radio" id="ipe" onclick="IPE.drawForm()" name="profil"/>
         <label for="ipe">Profile IPE</label>
-        <input type="radio" id="unp" onclick="unpForm()" name="profil"/>
+        <input type="radio" id="unp" onclick="UNP.drawForm()" name="profil"/>
         <label for="unp">Profile UNP</label><br />
         <br />
+
         <p id="form"></p>
         <p id='thickness1'></p>
         <p id="demo"></p>
-        <script language="JavaScript" type="text/javascript">
-            
-var diameter, length, thickness, vol, pieces, weight,
-  width, scrie, thicknessWrite;
-  var coefficientInp= {
+ <script language="JavaScript" type="text/javascript">
+
+var INP = new INP(), IPE = new IPE(), UNP = new UNP(),
+     ANGLE = new ANGLE(), ROUNDBAR = new ROUNDBAR(), METALSHEET = new METALSHEET();
+
+function INP() {
+	this.coefficient = {
         80: 6.1,
         100: 8.5,
         120: 11.5,
@@ -37,7 +53,58 @@ var diameter, length, thickness, vol, pieces, weight,
         280: 49,
         300: 56
     };
-    var coefficientIpe = {
+	
+	this.drawForm = function() {
+		let widthOpt = Object.keys(this.coefficient), ntxt='';
+		
+		for (i=0;i<widthOpt.length;i++)
+			ntxt+=`<option>${widthOpt[i]}</option>`;
+		
+		thicknessWrite.innerHTML = '';
+		_form.innerHTML = `
+              <table>
+                <tr>
+              <td><label for="width">Width (m)</label></td><td><select id="width">
+				${ntxt}
+			  </select>
+              </td>
+              </tr>
+              <tr>
+                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
+              </tr>
+              <tr>
+                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
+              </tr>
+              </table>
+              <button onclick="INP.calculate()">INP</button>
+              
+              `;
+	};
+	
+	this.calculate = function() {
+		let width = this.getWidth();
+		let weight = this.getWeight();
+		let length = this.getLength();
+		
+		let pieces = weight / length / this.coefficient[width];
+		
+		if (!isNaN(pieces)){
+		  alert("Pieces " + pieces);
+		  scrie.innerHTML += 'Profile INP Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
+		  document.getElementById('inp').checked = false;
+		  _form.innerHTML = '';
+		}
+		else 
+		  alert('Introduceti numai cifre');
+	};
+	
+	this.getWidth = function() { return Number(document.getElementById("width").value); };
+	this.getWeight = function() { return Number(document.getElementById("weight").value); };
+	this.getLength = function() { return Number(document.getElementById("length").value); };
+}
+
+function IPE() {
+	this.coefficient = {
         80: 6.2,
         100: 8.3,
         120: 10.7,
@@ -50,7 +117,58 @@ var diameter, length, thickness, vol, pieces, weight,
         270: 37,
         300: 43.3
     };
-    var coefficientUnp = {
+	
+	this.drawForm = function() {
+		let widthOpt = Object.keys(this.coefficient), ntxt='';
+		
+		for (i=0;i<widthOpt.length;i++)
+			ntxt+=`<option>${widthOpt[i]}</option>`;
+		
+		thicknessWrite.innerHTML = '';
+		_form.innerHTML = `
+              <table>
+                <tr>
+              <td><label for="width">Width (m)</label></td><td><select id="width">
+				${ntxt}
+			  </select>
+              </td>
+              </tr>
+              <tr>
+                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
+              </tr>
+              <tr>
+                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
+              </tr>
+              </table>
+              <button onclick="IPE.calculate()">IPE</button>
+              
+              `;
+	};
+	
+	this.calculate = function() {
+		let width = this.getWidth();
+		let weight = this.getWeight();
+		let length = this.getLength();
+		
+		let pieces = weight / length / this.coefficient[width];
+		
+		if (!isNaN(pieces)){
+		  alert("Pieces " + pieces);
+		  scrie.innerHTML += 'Profile IPE Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
+		  document.getElementById('ipe').checked = false;
+		  _form.innerHTML = '';
+		}
+		else 
+		  alert('Introduceti numai cifre');
+	};
+	
+	this.getWidth = function() { return Number(document.getElementById("width").value); };
+	this.getWeight = function() { return Number(document.getElementById("weight").value); };
+	this.getLength = function() { return Number(document.getElementById("length").value); };
+}
+
+function UNP() {
+	this.coefficient = {
         80: 8.9,
         100: 10.9,
         120: 13.7,
@@ -62,7 +180,58 @@ var diameter, length, thickness, vol, pieces, weight,
         240: 33.2,
         300: 46.2
     };
-    var coefficientAngle = {
+	
+	this.drawForm = function() {
+		let widthOpt = Object.keys(this.coefficient), ntxt='';
+		
+		for (i=0;i<widthOpt.length;i++)
+			ntxt+=`<option>${widthOpt[i]}</option>`;
+		
+		thicknessWrite.innerHTML = '';
+		_form.innerHTML = `
+              <table>
+                <tr>
+              <td><label for="width">Width (m)</label></td><td><select id="width">
+				${ntxt}
+			  </select>
+              </td>
+              </tr>
+              <tr>
+                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
+              </tr>
+              <tr>
+                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
+              </tr>
+              </table>
+              <button onclick="UNP.calculate()">UNP</button>
+              
+              `;
+	};
+	
+	this.calculate = function() {
+		let width = this.getWidth();
+		let weight = this.getWeight();
+		let length = this.getLength();
+		
+		let pieces = weight / length / this.coefficient[width];
+		
+		if (!isNaN(pieces)){
+		  alert("Pieces " + pieces);
+		  scrie.innerHTML += 'Profile UNP Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
+		  document.getElementById('ipe').checked = false;
+		  _form.innerHTML = '';
+		}
+		else 
+		  alert('Introduceti numai cifre');
+	};
+	
+	this.getWidth = function() { return Number(document.getElementById("width").value); };
+	this.getWeight = function() { return Number(document.getElementById("weight").value); };
+	this.getLength = function() { return Number(document.getElementById("length").value); };
+}
+
+function ANGLE() {
+	this.coefficient = {
          0:{
             0:0
         },
@@ -149,171 +318,12 @@ var diameter, length, thickness, vol, pieces, weight,
             24: 71.901
         }
     };
-  const pi = 3.141592;
-  scrie = document.getElementById('demo');
-  thicknessWrite = document.getElementById('thickness1');
-  _form = document.getElementById('form');
-
-function inpForm() {
-	let widthOpt=Object.keys(coefficientInp), ntxt='';
-	thicknessWrite.innerHTML = '';
+	
+	this.drawForm = function() {
+		let widthOpt=Object.keys(this.coefficient), ntxt='';
 	for (i=0;i<widthOpt.length;i++)
-	 ntxt+='<option>' + widthOpt[i]+ '</option>';
-    _form.innerHTML = `
-              <table>
-                <tr>
-              <td><label for="width">Width (m)</label></td><td><select id="width">` + 
-              ntxt +
-              `</select>
-              </td>
-              </tr>
-              <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-              </tr>
-              </table>
-              <button onclick="inp()">INP</button>
-              
-              `;
-             
-}
-
-function ipeForm() {
-	let widthOpt=Object.keys(coefficientIpe), ntxt='';
-	thicknessWrite.innerHTML = '';
-	for (i=0;i<widthOpt.length;i++)
-	 ntxt+='<option>' + widthOpt[i]+ '</option>';
-    _form.innerHTML = `
-              <table>
-                <tr>
-              <td><label for="width">Width (m)</label></td><td><select id="width" >` + ntxt +
-              
-              `</select>
-              </td>
-              </tr>
-              <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-              </tr>
-              </table>
-              <button onclick="ipe()">IPE</button>
-              
-              `;
-}
-
-function unpForm() {
-	let widthOpt=Object.keys(coefficientUnp), ntxt='';
-	thicknessWrite.innerHTML = '';
-	for (i=0;i<widthOpt.length;i++)
-	 ntxt+='<option>' + widthOpt[i]+ '</option>';
-    _form.innerHTML = `
-              <table>
-                <tr>
-              <td><label for="width">Width (m)</label></td><td><select id="width" >` + ntxt +
-              
-             ` </select>
-              </td>
-              </tr>
-              <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-              </tr>
-              </table>
-              <button onclick="unp()">UNP</button>
-              
-              `;
-}
-
-function inp() {
-    
-    width = Number(document.getElementById("width").value);
-    weight = Number(document.getElementById("weight").value);
-    length = Number(document.getElementById("length").value);
-
-    pieces = weight / length / coefficientInp[width];
-    if (!isNaN(pieces)){
-      alert("Pieces " + pieces);
-      scrie.innerHTML += 'Profile INP Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
-      document.getElementById('inp').checked = false;
-      _form.innerHTML = '';
-    }
-    else 
-      alert('Enter only numbers');
-}
-
-function ipe() {
-    
-    width = Number(document.getElementById("width").value);
-    weight = Number(document.getElementById("weight").value);
-    length = Number(document.getElementById("length").value);
-
-    pieces = weight / length / coefficientIpe[width];
-    if (!isNaN(pieces)){
-      alert("Pieces " + pieces);
-      scrie.innerHTML += 'Profile IPE Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
-      document.getElementById('inp').checked = false;
-      _form.innerHTML = '';
-    }
-    else 
-      alert('Enter only numbers');
-}
-
-function unp() {
-    
-    width = Number(document.getElementById("width").value);
-    weight = Number(document.getElementById("weight").value);
-    length = Number(document.getElementById("length").value);
-    pieces = weight / length / coefficientUnp[width];
-    if (!isNaN(pieces)){
-      alert("Pieces " + pieces);
-      scrie.innerHTML += 'Profile UNP Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Pieces=" + pieces + '<br>';
-      document.getElementById('inp').checked = false;
-      _form.innerHTML = '';
-    }
-    else 
-      alert('Enter only numbers');
-}
-
-function angle() {
-    
-    width = Number(document.getElementById("width").value);
-    weight = Number(document.getElementById("weight").value);
-    length = Number(document.getElementById("length").value);
-    thickness = Number(document.getElementById("thickness").value);
-    pieces = weight / coefficientAngle[width][thickness] / length;
-    if (!isNaN(pieces)){
-      alert("Pieces " + pieces);
-      scrie.innerHTML += 'Profile Angle Total weight kg=' + weight + " Width=" + width + " Length=" + length + ' Thickness=' + thickness + " Pieces=" + pieces + '<br>';
-      document.getElementById('angle').checked = false;
-      _form.innerHTML = '';
-      thicknessWrite.innerHTML = '';
-    }
-    else 
-      alert('Enter only numbers');
-}
-
-function thicknes() {
-	width = Number(document.getElementById('width').value);
-	let widthOpt=Object.keys(coefficientAngle[width]), ntxt='';
-	for (i=0;i<widthOpt.length;i++)
-	 ntxt+='<option>' + widthOpt[i]+ '</option>';
-    thicknessWrite.innerHTML = '<label for="thickness">Thickness (mm)</label></td><td><select id="thickness">' + ntxt +
-        '</select></tr><button onclick="angle()">Angle</button>';
-if  (document.getElementById('angle').checked = false)
-thicknessWrite.innerHTML = '';
-}
-
-function angleForm() {
-	let widthOpt=Object.keys(coefficientAngle), ntxt='';
-	for (i=0;i<widthOpt.length;i++)
-	 ntxt+='<option>' + widthOpt[i]+ '</option>';
-    _form.innerHTML = `
+	  ntxt+='<option>' + widthOpt[i]+ '</option>';
+          _form.innerHTML = `
               <table>
               	<tr>
                 <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
@@ -322,20 +332,105 @@ function angleForm() {
               <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
               </tr>
                 <tr>
-              <td><label for="width">Width (m)</label></td><td><select id="width" onchange='thicknes()'>` + ntxt +
-         
-             ` </select>             
+              <td><label for="width">Width (m)</label></td><td><select id="width" onchange='ANGLE.thickness(this.value)'>
+				${ntxt}
+			  </select>             
               </td>
               </tr>          
               </table>
                                          
-              `;             
-              
-}
+              `;                        
+};
 
-function metalsheetForm() {
-	thicknessWrite.innerHTML = '';
-    _form.innerHTML = `
+	this.thickness = function(width){
+          let widthOpt=Object.keys(this.coefficient[width]), ntxt='';
+	  for (i=0;i<widthOpt.length;i++)
+	  ntxt+='<option>' + widthOpt[i]+ '</option>';
+          thicknessWrite.innerHTML = '<label for="thickness">Thickness (mm)</label></td><td><select id="thickness">' + ntxt +
+          '</select></tr><button onclick="ANGLE.calculate()">Angle</button>';
+   
+        if  (document.getElementById('angle').checked == false)
+          thicknessWrite.innerHTML = '';
+        };
+
+
+	this.calculate = function() {
+		let width = this.getWidth();
+		let weight = this.getWeight();
+		let length = this.getLength();
+		let thickness = this.getThickness(); 
+				
+		let pieces = weight / this.coefficient[width][thickness] / length;
+    
+                if (!isNaN(pieces)){
+                  alert("Pieces " + pieces);
+                  scrie.innerHTML += 'Profile Angle Total weight kg=' + weight + " Width=" + width + " Length=" + length + ' Thickness=' + thickness + " Pieces=" + pieces + '<br>';
+                  document.getElementById('angle').checked = false;
+                  _form.innerHTML = '';
+                  thicknessWrite.innerHTML = '';
+                }
+                else 
+                alert('Introduceti numai cifre');
+         }
+	
+	this.getWidth = function() { return Number(document.getElementById("width").value); };
+	this.getWeight = function() { return Number(document.getElementById("weight").value); };
+	this.getLength = function() { return Number(document.getElementById("length").value); };
+        this.getThickness= function() { return Number(document.getElementById("thickness").value);}; 
+        
+};   
+
+
+function ROUNDBAR() {
+		
+	this.drawForm = function() {
+	  thicknessWrite.innerHTML = '';
+          _form.innerHTML = `
+              <table>
+              	<tr>
+                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
+              </tr>
+                <tr>
+              <td><label for="diameter">Diameter (mm)</label></td><td><input id="diameter" type="text"></td>
+              </tr>
+               <tr>
+                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
+              </tr>
+              </table>
+              <button onclick="ROUNDBAR.calculate()">Round Bar</button>         
+              
+              `;
+              };
+	
+	this.calculate = function() {
+		let diameter = this.getDiameter(); 
+		let weight = this.getWeight();
+		let length = this.getLength();
+		const pi = 3.141592;
+		let pieces = (weight / ((pi * diameter * diameter / 1000000) * (2.466 / 0.0012566))) / length;
+		
+		if (!isNaN(pieces)){
+                  alert("Bar pieces " + pieces);
+                  scrie.innerHTML += 'Round Bar Total weight kg=' + weight + " Length=" + length + " Diameter=" + diameter + " Pieces=" + pieces + '<br>';
+                  document.getElementById('roundbar').checked = false;
+                 _form.innerHTML = '';
+                }
+                else 
+                  alert('Introduceti numai cifre');
+
+	 };
+	
+	this.getWeight = function() { return Number(document.getElementById("weight").value); };
+	this.getLength = function() { return Number(document.getElementById("length").value); };
+        this.getDiameter = function() { return Number(document.getElementById("diameter").value); };
+
+};
+
+function METALSHEET() {
+	
+	this.drawForm = function() {
+          thicknessWrite.innerHTML = '';
+          _form.innerHTML = `
               <table>
               	<tr>
                 <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
@@ -350,63 +445,41 @@ function metalsheetForm() {
                 <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
               </tr>
               </table>
-              <button onclick="metalsheet()">Metal Sheet</button>         
+              <button onclick="METALSHEET.calculate()">Metal Sheet</button>         
               
               `;
-}
+	};
+	
+	this.calculate = function() {
+		let width = this.getWidth();
+		let weight = this.getWeight();
+		let length = this.getLength();
+		let thickness = this.getThickness(); 
+		let pieces = weight / ((8000 * width * length * thickness) / 1000);
+                
+                if (!isNaN(pieces)){
+                  alert("Pieces " + pieces);
+                  scrie.innerHTML += 'Metal Sheet Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Thickness=" + thickness + " Pieces=" + pieces + '<br>';
+                  document.getElementById('angle').checked = false;
+                  _form.innerHTML = '';
+                }
+                else 
+                  alert('Introduceti numai cifre');
+         };
 
-function metalsheet() {
-    width = Number(document.getElementById("width").value);
-    weight = Number(document.getElementById("weight").value);
-    length = Number(document.getElementById("length").value);
-    thickness = Number(document.getElementById("thickness").value);
-    pieces = weight / ((8000 * width * length * thickness) / 1000);
-    if (!isNaN(pieces)){
-      alert("Pieces " + pieces);
-      scrie.innerHTML += 'Metal Sheet Total weight kg=' + weight + " Width=" + width + " Length=" + length + " Thickness=" + thickness + " Pieces=" + pieces + '<br>';
-      document.getElementById('angle').checked = false;
-      _form.innerHTML = '';
-    }
-    else 
-      alert('Enter only numbers');
-}
+        this.getWidth = function() { return Number(document.getElementById("width").value); };
+	this.getWeight = function() { return Number(document.getElementById("weight").value); };
+	this.getLength = function() { return Number(document.getElementById("length").value); };
+        this.getThickness= function() { return Number(document.getElementById("thickness").value);}; 
+};
+var _form, scrie, thicknessWrite;
+  scrie = document.getElementById('demo');
+  thicknessWrite = document.getElementById('thickness1');
+  _form = document.getElementById('form');
 
-function roundbarForm() {
-	thicknessWrite.innerHTML = '';
-    _form.innerHTML = `
-              <table>
-              	<tr>
-                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-              </tr>
-                <tr>
-              <td><label for="diameter">Diameter (mm)</label></td><td><input id="diameter" type="text"></td>
-              </tr>
-               <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-              </tr>
-              </table>
-              <button onclick="roundbar()">Round Bar</button>         
-              
-              `;
-}
 
-function roundbar() {
-    let coefficient;
-    diameter = Number(document.getElementById("diameter").value);
-    weight = Number(document.getElementById("weight").value);
-    length = Number(document.getElementById("length").value);
-    vol = pi * diameter * diameter / 1000000;
-    coefficient = vol * (2.466 / 0.0012566);
-    pieces = (weight / coefficient) / length;
-    if (!isNaN(pieces)){
-      alert("Bar pieces " + pieces);
-      scrie.innerHTML += 'Round Bar Total weight kg=' + weight + " Length=" + length + " Diameter=" + diameter + " Pieces=" + pieces + '<br>';
-      document.getElementById('roundbar').checked = false;
-      _form.innerHTML = '';
-    }
-    else 
-      alert('Enter only numbers');
-}
-        </script>
+
+
+      </script>
     </body>
 </html>
