@@ -1,7 +1,6 @@
 <html>
     <head>
         <title>JavaScript sample code</title>
-        
     </head>
     <body style='background-color:LightGray'>
         <h1>Calculation Metal Profile</h1>
@@ -13,7 +12,7 @@
         <label for="angle" style='background-color:Aqua'>Profile Angle</label><br /><br />
         
 		
-	<input type="radio" id="inp" onclick="Inp.drawForm()" name="profil"/>
+	      <input type="radio" id="inp" onclick="Inp.drawForm()" name="profil"/>
         <label for="inp" style='background-color:LightSkyBlue'>Profile INP</label>
         <input type="radio" id="ipe" onclick="Ipe.drawForm()" name="profil"/>
         <label for="ipe" style='background-color:red'>Profile IPE</label>
@@ -25,548 +24,531 @@
         <input type="radio" id="heb" onclick="Heb.drawForm()" name="profil"/>
         <label for="heb" style='background-color:Pink'>Profile HEB</label>
         <input type="radio" id="hem" onclick="Hem.drawForm()" name="profil"/>
-        <label for="hem" style='background-color:Lime'>Profile HEM</label><br/><br/>
+        <label for="hem" style='background-color:Lime'>Profile HEM</label><br/>
+        <br/>
 
         <input type="radio" id="upe" onclick="Upe.drawForm()" name="profil"/>
         <label for="upe" style='background-color:yellow'>Profile UPE</label>
         <input type="radio" id="hex" onclick="Hexagonal.drawForm()" name="profil"/>
-        <label for="hex" style='background-color:Khaki'>Profile Hexagonal</label>
-        <button onclick="window.print()">Print</button><br/><br/>
+        <label for="hex" style='background-color:Khaki'>Profile HEX</label>
+        <button onclick="window.print()">Print</button>
+        <br/>
+        <br/>
 
         <p id="form"></p>
         <p id="demo"></p>
-
  <script language="JavaScript" type="text/javascript">
 
 class inpBase {
-    constructor(type) {
-        this.type = type;
-        this.form = document.getElementById('form');
-        this.demo = document.getElementById('demo');
-        this.color = {
-            Inp: 'LightSkyBlue',
-            Ipe: 'red',
-            Unp: 'green',
-            Upe: 'yellow',
-            Round_Bar: 'orange',
-            Metal_Sheet: 'Magenta',
-            Angle: 'Aqua',
-            Heb: 'Pink',
-            Hea: 'DarkTurquoise',
-            Hem: 'Lime',
-            Hexagonal: 'Khaki'
-        };
+  constructor(type) {
+    this.type = type;
+    this.form = document.getElementById('form');
+    this.demo = document.getElementById('demo');
+       
+  };
 
-    };
+  writeForm(txt) {
+		this.form.innerHTML = txt;
+	};
+	
+	
+	scrie(txt) {
+		this.demo.innerHTML += txt;
+	};
 
-    writeForm(txt) {
-        this.form.innerHTML = txt;
-    };
+  getWidth() { return Number(document.getElementById("width").value); };
+  getWeight() { return Number(document.getElementById("weight").value); };
+  getLength() { return Number(document.getElementById("length").value); };
+  getThickness() { return Number(document.getElementById("thickness").value);};
+  getDiameter() { return Number(document.getElementById("diameter").value); };
 
-    writeThickness(txt) {
-        document.getElementById('thickness_block').innerHTML = txt;
-    };
-
-    scrie(txt) {
-        this.demo.innerHTML += txt;
-    };
-
-    getWidth() {
-        return Number(document.getElementById("width").value);
-    };
-    getWeight() {
-        return Number(document.getElementById("weight").value);
-    };
-    getLength() {
-        return Number(document.getElementById("length").value);
-    };
-    getThickness() {
-        return Number(document.getElementById("thickness").value);
-    };
-    getDiameter() {
-        return Number(document.getElementById("diameter").value);
-    };
-
-    drawForm() {
-        let ntxt = '';
-        Object.keys(this.coefficient).forEach(function(key) {
-            ntxt += `<option>${key}</option>`;
-        });
-
-        this.writeForm(`
+  drawForm() {
+		let ntxt='';
+   if (this.coefficient != null) {
+  Object.keys(this.coefficient).forEach(function(key){
+      ntxt+=`<option>${key}</option>`;
+    });
+	};
+		this.writeForm(`
+			  <div id='profile'>
               <table>
               <tr>
-                <td><label for="width">Width (m)</label></td>
-                <td>
-                  <select id="width">
-	          ${ntxt}
-	          </select>
-                </td>
-              </tr>
-              <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
+                <td><label for="weight">Total weight (kg)</label></td>
+                <td><input id="weight" type="text"></td>
               </tr>
               <tr>
                 <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
               </tr>
+              <tr>
+              <td><label for="width">Width (mm)</label></td><td><select id="width">
+				${ntxt}
+			  </select>
+              </td>
+              </tr>
+              <tr id='thickness_block'>
+              <td>
+              </td>
+              <td>
+              </td>
+              </tr>
               </table>
               <button onclick="${ this.type }.calculate()">${ this.type }</button>
+              </div>
         `);
-    };
-
-    calculate() {
-        let width = this.getWidth();
-        let weight = this.getWeight();
-        let length = this.getLength();
-
-        let pieces = weight / length / this.coefficient[width];
-
-        if (!isNaN(pieces)) {
-            alert("Pieces " + pieces);
-            this.scrie(`<p style='background-color:${this.color[this.type]};'>Profile ${ this.type } Total Weight = ${weight}kg; Width = ${width}mm; Length = ${length}m; Pieces = ${pieces}</p>`);
-            document.getElementById(this.type.toLowerCase()).checked = false;
-            this.writeForm('');
-        } else
-            alert('Enter only numbers');
-    };
+        this.redraw();
+        
+	};
+   
+   redraw(){};
+   
+  calculate() {
+		let width = this.getWidth();
+		let weight = this.getWeight();
+		let length = this.getLength();
+		
+		let pieces = weight / length / this.coefficient[width];
+		
+		if (!isNaN(pieces)) {
+		  alert("Pieces " + pieces);
+		  this.scrie(`<p style='background-color:${this.color};'>Profile ${ this.type } Total Weight = ${weight}kg; Width = ${width}mm; Length = ${length}m; Pieces = ${pieces}</p>`);
+		  document.getElementById(this.type.toLowerCase()).checked = false;
+		  this.writeForm('');
+		}
+		else 
+		  alert('Enter only numbers');
+	};
 };
 
 class hea extends inpBase {
-    constructor() {
-        super('Hea');
-        this.coefficient = {
-            100: 17.1,
-            120: 20.4,
-            140: 25.3,
-            160: 31.2,
-            180: 36.4,
-            200: 43,
-            220: 52,
-            240: 62,
-            260: 70,
-            280: 78,
-            300: 90,
-            320: 100,
-            340: 108,
-            360: 115,
-            400: 128,
-            450: 143,
-            500: 159
-        };
+  constructor() {
+    super('Hea');
+    this.coefficient = {
+      100: 17.1,
+      120: 20.4,
+      140: 25.3,
+      160: 31.2,
+      180: 36.4,
+      200: 43,
+      220:52,
+      240: 62,
+      260: 70,
+      280: 78,
+      300: 90,
+      320: 100,
+      340: 108,
+      360: 115,
+      400: 128,
+      450: 143,
+      500: 159
     };
+    this.color = 'DarkTurquoise';
+  };
 };
 
 class heb extends inpBase {
-    constructor() {
-        super('Heb');
-        this.coefficient = {
-            100: 20.9,
-            120: 27.4,
-            140: 34.5,
-            160: 43.7,
-            180: 52.5,
-            200: 63,
-            220: 73,
-            240: 85,
-            260: 95,
-            280: 106,
-            300: 120,
-            320: 130,
-            340: 137,
-            360: 146,
-            400: 159,
-            450: 175,
-            500: 192
-        };
+  constructor() {
+    super('Heb');
+    this.coefficient = {
+      100: 20.9,
+      120: 27.4,
+      140: 34.5,
+      160: 43.7,
+      180: 52.5,
+      200: 63,
+      220: 73,
+      240: 85,
+      260: 95,
+      280: 106,
+      300: 120,
+      320: 130,
+      340: 137,
+      360: 146,
+      400: 159,
+      450: 175,
+      500: 192
     };
+    this.color = 'Pink';
+  };
 };
 
 class hem extends inpBase {
-    constructor() {
-        super('Hem');
-        this.coefficient = {
-            100: 42.8,
-            120: 53.4,
-            140: 64.8,
-            160: 78.1,
-            180: 91.1,
-            200: 106,
-            220: 120,
-            240: 160,
-            260: 176,
-            280: 194,
-            300: 244,
-            320: 251,
-            340: 254,
-            360: 256,
-            400: 262,
-            450: 270,
-            500: 277
-        };
+  constructor() {
+    super('Hem');
+    this.coefficient = {
+      100: 42.8,
+      120: 53.4,
+      140: 64.8,
+      160: 78.1,
+      180: 91.1,
+      200: 106,
+      220: 120,
+      240: 160,
+      260: 176,
+      280: 194,
+      300: 244,
+      320: 251,
+      340: 254,
+      360: 256,
+      400: 262,
+      450: 270,
+      500: 277
     };
+    this.color = 'Lime';
+  };
 };
 
 
 class inp extends inpBase {
-    constructor() {
-        super('Inp');
-        this.coefficient = {
-            80: 6.1,
-            100: 8.5,
-            120: 11.5,
-            140: 14.7,
-            160: 18.5,
-            180: 22.5,
-            200: 27,
-            240: 37,
-            260: 43,
-            280: 49,
-            300: 56,
-            320: 63,
-            340: 70,
-            360: 78,
-            400: 95,
-            450: 118,
-            500: 145
-        };
+  constructor() {
+    super('Inp');
+    this.coefficient = {
+      80: 6.1,
+      100: 8.5,
+      120: 11.5,
+      140: 14.7,
+      160: 18.5,
+      180: 22.5,
+      200: 27,
+      240: 37,
+      260: 43,
+      280: 49,
+      300: 56,
+      320: 63,
+      340: 70,
+      360: 78,
+      400: 95,
+      450: 118,
+      500: 145
     };
+    this.color='LightSkyBlue';
+  };
 };
 
 class ipe extends inpBase {
-    constructor() {
-        super('Ipe');
-        this.coefficient = {
-            80: 6.2,
-            100: 8.3,
-            120: 10.7,
-            140: 13.2,
-            160: 16.2,
-            180: 19.3,
-            200: 23,
-            220: 26.9,
-            240: 31.5,
-            270: 37,
-            300: 43.3,
-            330: 50.4,
-            360: 58.6,
-            400: 68,
-            450: 80,
-            500: 93
-        };
+  constructor() {
+    super('Ipe');
+    this.coefficient = {
+      80: 6.2,
+      100: 8.3,
+      120: 10.7,
+      140: 13.2,
+      160: 16.2,
+      180: 19.3,
+      200: 23,
+      220: 26.9,
+      240: 31.5,
+      270: 37,
+      300: 43.3,
+      330: 50.4,
+      360: 58.6,
+      400: 68,
+      450: 80,
+      500: 93
     };
+    this.color = 'red';
+  };
 };
 
 class unp extends inpBase {
-    constructor() {
-        super('Unp');
-        this.coefficient = {
-            80: 8.9,
-            100: 10.9,
-            120: 13.7,
-            140: 16.4,
-            160: 19.3,
-            180: 22.5,
-            200: 26,
-            220: 30,
-            240: 33.2,
-            300: 46.2,
-            320: 61,
-            350: 62,
-            380: 65,
-            400: 74
-        };
+  constructor() {
+    super('Unp');
+    this.coefficient = {
+      80: 8.9,
+      100: 10.9,
+      120: 13.7,
+      140: 16.4,
+      160: 19.3,
+      180: 22.5,
+      200: 26,
+      220: 30,
+      240: 33.2,
+      300: 46.2,
+      320: 61,
+      350: 62,
+      380: 65,
+      400: 74
     };
+    this.color = 'green';
+  };
 };
 
 class upe extends inpBase {
-    constructor() {
-        super('Upe');
-        this.coefficient = {
-            80: 7.9,
-            100: 9.82,
-            120: 12.1,
-            140: 14.5,
-            160: 17,
-            180: 19.7,
-            200: 22.8,
-            220: 26.6,
-            240: 30.2,
-            270: 35.2,
-            300: 44.4,
-            330: 53.2,
-            360: 61.2,
-            400: 72.2
-        };
+  constructor() {
+    super('Upe');
+    this.coefficient = {
+      80: 7.9,
+      100: 9.82,
+      120: 12.1,
+      140: 14.5,
+      160: 17,
+      180: 19.7,
+      200: 22.8,
+      220: 26.6,
+      240: 30.2,
+      270: 35.2,
+      300: 44.4,
+      330: 53.2,
+      360: 61.2,
+      400: 72.2
     };
+    this.color = "yellow";
+  };
 };
 
 class angle extends inpBase {
-    constructor() {
-        super('Angle');
-        this.coefficient = {
-            0: {
-                0: 0
-            },
-            20: {
-                3: 0.884
-            },
-            25: {
-                3: 1.123,
-                4: 1.466,
-                5: 1.793
-            },
-            30: {
-                3: 1.362,
-                4: 1.785,
-                5: 2.191
-            },
-            35: {
-                4: 2.103
-            },
-            40: {
-                4: 2.422,
-                5: 2.988,
-                6: 3.538
-            },
-            45: {
-                4: 2.741,
-                5: 3.386,
-                6: 4.016
-            },
-            50: {
-                5: 3.785,
-                6: 4.494,
-                7: 5.187
-            },
-            55: {
-                5: 4.183,
-                6: 4.972
-            },
-            60: {
-                5: 4.581,
-                6: 5.45,
-                8: 7.139,
-                10: 8.765
-            },
-            70: {
-                6: 6.406,
-                7: 7.31,
-                8: 8.414,
-                10: 10.358
-            },
-            80: {
-                6: 7.362,
-                8: 9.689,
-                10: 11.952
-            },
-            90: {
-                6: 8.318,
-                8: 10.964,
-                10: 13.545,
-                12: 16.063
-            },
-            100: {
-                8: 12.238,
-                10: 14.915,
-                12: 17.975,
-                15: 22.111
-            },
-            120: {
-                8: 14.788,
-                10: 18.326,
-                12: 21.8,
-                15: 26.891
-            },
-            150: {
-                10: 23.106,
-                12: 27.537,
-                15: 34.062,
-                18: 40.444
-            },
-            200: {
-                16: 48.954,
-                18: 54.786,
-                20: 60.555,
-                24: 71.901
-            }
-        };
+  constructor() {
+    super('Angle');
+    this.coefficient = {
+         0:{
+            0:0
+        },
+        20: {
+            3: 0.884
+        },
+        25: {
+            3: 1.123,
+            4: 1.466,
+            5: 1.793
+        },
+        30: {
+            3: 1.362,
+            4: 1.785,
+            5: 2.191
+        },
+        35: {
+            4: 2.103
+        },
+        40: {
+            4: 2.422,
+            5: 2.988,
+            6: 3.538
+        },
+        45: {
+            4: 2.741,
+            5: 3.386,
+            6: 4.016
+        },
+        50: {
+            5: 3.785,
+            6: 4.494,
+            7: 5.187
+        },
+        55: {
+            5: 4.183,
+            6: 4.972
+        },
+        60: {
+            5: 4.581,
+            6: 5.45,
+            8: 7.139,
+            10: 8.765
+        },
+        70: {
+            6: 6.406,
+            7: 7.31,
+            8: 8.414,
+            10: 10.358
+        },
+        80: {
+            6: 7.362,
+            8: 9.689,
+            10: 11.952
+        },
+        90: {
+            6: 8.318,
+            8: 10.964,
+            10: 13.545,
+            12: 16.063
+        },
+        100: {
+            8: 12.238,
+            10: 14.915,
+            12: 17.975,
+            15: 22.111
+        },
+        120: {
+            8: 14.788,
+            10: 18.326,
+            12: 21.8,
+            15: 26.891
+        },
+        150: {
+            10: 23.106,
+            12: 27.537,
+            15: 34.062,
+            18: 40.444
+        },
+        200: {
+            16: 48.954,
+            18: 54.786,
+            20: 60.555,
+            24: 71.901
+        }
+    };
+    this.color = 'Aqua';
+  };
+
+writeThickness(txt) {
+		document.getElementById('thickness_block').innerHTML = txt;
+	};
+
+    redraw() {
+        let sel ;             
+        sel = document.getElementsByTagName('SELECT');        
+        sel[0].setAttribute('onchange', 'Angle.thicknessForm(this.value)');
+        sel = document.getElementsByTagName('TR');
+       
     };
 
-    drawForm() {
-        let ntxt = '';
-        Object.keys(this.coefficient).forEach(function(key) {
-            ntxt += `<option>${key}</option>`;
-        });
+  thicknessForm(width) {
+    let ntxt='';
+    Object.keys(this.coefficient[width]).forEach(function(key){
+      ntxt+=`<option>${key}</option>`;
+    });
 
-        this.writeForm(`
-      <table>
-        <tr>
-          <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-        </tr>
-        <tr>
-          <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-        </tr>
-        <tr>
-          <td><label for="width">Width (mm)</label></td>
-          <td>
-            <select id="width" onchange='Angle.thicknessForm(this.value)'>
-                ${ntxt}
-            </select>             
-          </td>
-        </tr>
-        <tr id='thickness_block'></tr>         
-      </table>
-      <button id='angle_button' onclick="Angle.calculate()" disabled>Angle</button> 
-		`);
-    }
-
-    thicknessForm(width) {
-        let ntxt = '';
-        Object.keys(this.coefficient[width]).forEach(function(key) {
-            ntxt += `<option>${key}</option>`;
-        });
-
-        this.writeThickness(`
+    this.writeThickness(`
       <td><label for="thickness">Thickness (mm)</label></td>
         <td><select id="thickness">${ntxt}</select></td>
     `);
-        document.getElementById('angle_button').disabled = false;
-    };
+    
+  };
 
     calculate() {
-        let width = this.getWidth();
-        let weight = this.getWeight();
-        let length = this.getLength();
-        let thickness = this.getThickness();
-        let pieces = weight / this.coefficient[width][thickness] / length;
-
-        if (!isNaN(pieces)) {
-            alert("Pieces " + pieces);
-            this.scrie(`<p style='background-color:${this.color[this.type]};'>Profile Angle Total weight=${weight}kg; Width=${width}mm; Length=${length}m; Thickness=${thickness}mm; Pieces= ${pieces} </p>`);
-            document.getElementById('angle').checked = false;
-            this.writeForm('');
-        } else
-            alert('Enter only numbers');
-
-    };
+      let width = this.getWidth();
+      let weight = this.getWeight();
+      let length = this.getLength();
+      let thickness = this.getThickness(); 
+		  let pieces = weight / this.coefficient[width][thickness] / length;
+    
+      if ( !isNaN(pieces) ) {
+        alert("Pieces " + pieces);
+        this.scrie(`<p style='background-color:${this.color};'>Profile Angle Total weight=${weight}kg; Width=${width}mm; Length=${length}m; Thickness=${thickness}mm; Pieces= ${pieces} </p>`);
+        document.getElementById('angle').checked = false;
+        this.writeForm('');
+      }
+      else 
+       alert('Enter only numbers');
+     
+  };
 };
 
 class roundBar extends inpBase {
-    constructor(type) {
-        super(type);
-    };
-    drawForm() {
-        let ntxt = '';
-
-        this.writeForm(`
-       <table>
-              <tr>
-                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-              </tr>
-               <tr>
-                <td><label for="diameter">Diameter (mm)</label></td><td><input id="diameter" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-              </tr>
-              </table>
-              <button onclick="${ this.type }.calculate()">${ this.type }</button>         
-		`);
-    };
-
+  constructor(type) {
+    super(type);
+    this.color = 'orange';
+  };
+  
+     redraw() {
+     let sel,cr;
+     
+        sel=document.getElementsByTagName('TD');
+        sel[4].innerHTML ='Diameter';
+        cr=document.createElement('INPUT');
+        cr.type="text";
+        cr.id='diameter';
+        sel=document.getElementsByTagName('SELECT');
+        sel[0].parentNode.replaceChild(cr,sel[0]);
+       
+     };
+     
     calculate() {
-        let diameter = this.getDiameter();
-        let weight = this.getWeight();
-        let length = this.getLength();
-        const pi = 3.141592;
-        let pieces = (weight / ((pi * diameter * diameter / 1000000) * (2.466 / 0.0012566))) / length;
-
-        if (!isNaN(pieces)) {
-            alert("Bar pieces " + pieces);
-            this.scrie(`<p style='background-color:${this.color[this.type]};'>Round Bar Total weight=${weight}kg; Length= ${length}m; Diameter=${diameter}mm; Pieces=${pieces} </p>`);
-            document.getElementById('roundbar').checked = false;
-            this.writeForm('');
-        } else
-            alert('Enter only numbers');
-    };
+      let diameter = this.getDiameter(); 
+      let weight = this.getWeight();
+      let length = this.getLength();
+      const pi = 3.141592;
+		  let pieces = (weight / ((pi * diameter * diameter / 1000000) * (2.466 / 0.0012566))) / length;
+		
+		if (!isNaN(pieces)){
+                  alert("Bar pieces " + pieces);
+                  this.scrie(`<p style='background-color:${this.color};'>Round Bar Total weight=${weight}kg; Length= ${length}m; Diameter=${diameter}mm; Pieces=${pieces} </p>`);
+                  document.getElementById('roundbar').checked = false;
+                 this.writeForm('');
+                }
+                else 
+                  alert('Enter only numbers');
+        };
 };
 
 class hex extends roundBar {
-    constructor() {
-        super('Hexagonal');
-    };
+  constructor() {
+    super('Hexagonal');
+    this.color = 'Khaki';
+  };
 
-    calculate() {
-        let diameter = this.getDiameter();
-        let weight = this.getWeight();
-        let length = this.getLength();
-        let pieces = (weight / ((3 * Math.sqrt(3) * diameter * diameter / (1000000 * 16)) * (2.466 / 0.0012566))) / length / 10.666;
-
-        if (!isNaN(pieces)) {
-            alert("Hexagonal pieces " + pieces);
-            this.scrie(`<p style='background-color:${this.color[this.type]};'>Hexagonal Bar Total weight=${weight}kg; Length= ${length}m; Diameter=${diameter}mm; Pieces=${pieces} </p>`);
-            document.getElementById('hex').checked = false;
-            this.writeForm('');
-        } else
-            alert('Enter only numbers');
-    };
+  calculate() {
+    let diameter = this.getDiameter(); 
+    let weight = this.getWeight();
+    let length = this.getLength();
+    let pieces = (weight / ((3 * Math.sqrt(3) * diameter * diameter / (1000000 * 16 )) * (2.466 / 0.0012566))) / length / 10.666 ;
+  
+  if (!isNaN(pieces)){
+      alert("Hexagonal pieces " + pieces);
+      this.scrie(`<p style='background-color:${this.color};'>Hexagonal Bar Total weight=${weight}kg; Length= ${length}m; Diameter=${diameter}mm; Pieces=${pieces} </p>`);
+      document.getElementById('hex').checked = false;
+      this.writeForm('');
+    }
+    else 
+      alert('Enter only numbers');
+  };
 };
 
 
 class metalSheet extends inpBase {
-    constructor() {
-        super('Metal_Sheet');
-    };
-    drawForm() {
-        let ntxt = '';
+  constructor() {
+    super('Metal_Sheet');
+    this.color = 'Magenta';
+  };
+  
+    redraw() {
+        let sel, cr;
+                       
+        sel = document.getElementsByTagName('TR'); 
+        sel=sel[2].children;    
+        sel=sel[0].children;    
+        sel[0].innerHTML ='Width (m)';   
+        cr = document.createElement('INPUT');
+        cr.type = "text";
+        cr.id = 'width';
+        sel = document.getElementsByTagName('SELECT');
+        sel[0].parentNode.replaceChild(cr, sel[0]);
+        sel = document.getElementsByTagName('TD');
+        cr = document.createElement('LABEL');       
+        sel[6].appendChild(cr);
+        sel = sel[6].children;
+        sel[0].innerHTML = "Thickness (mm)";
+        cr = document.createElement('INPUT');
+        cr.type = "text";
+        cr.id = 'thickness';
+        sel = document.getElementsByTagName('TD');
+        sel[7].appendChild(cr);
 
-        this.writeForm(`
-         <table>
-              <tr>
-                <td><label for="length">Length (m)</label></td><td><input id="length" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="width">Width (m)</label></td><td><input id="width" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="thickness ">Thickness (mm)</label></td><td><input id="thickness" type="text"></td>
-              </tr>
-              <tr>
-                <td><label for="weight">Total weight (kg)</label></td><td><input id="weight" type="text"></td>
-              </tr>
-              </table>
-              <button onclick="${this.type}.calculate()">${this.type}</button>         
-        `);
     };
 
     calculate() {
-        let weight = this.getWeight();
-        let length = this.getLength();
-        let width = this.getWidth();
-        let thickness = this.getThickness();
-        let pieces = weight / ((8000 * width * length * thickness) / 1000);
-
-        if (!isNaN(pieces)) {
-            alert("Pieces " + pieces);
-            this.scrie(`<p style='background-color:${this.color[this.type]};'>Metal Sheet Total weight=${weight}kg; Width=${width}m; Length=${length}m; Thickness=${thickness}mm; Pieces=${pieces} </p>`);
-            document.getElementById('angle').checked = false;
-            this.writeForm('');
-        } else
-            alert('Enter only numbers');
-    };
+      let weight = this.getWeight();
+      let length = this.getLength();
+      let width = this.getWidth();
+	  let thickness = this.getThickness(); 
+		let pieces = weight / ((8000 * width * length * thickness) / 1000);
+                
+                if (!isNaN(pieces)){
+                  alert("Pieces " + pieces);
+                  this.scrie(`<p style='background-color:${this.color};'>Metal Sheet Total weight=${weight}kg; Width=${width}m; Length=${length}m; Thickness=${thickness}mm; Pieces=${pieces} </p>`);
+                  document.getElementById('metalsheet').checked = false;
+                  this.writeForm('');
+                }
+                else 
+                  alert('Enter only numbers');
+        };
 };
 
-var Inp = new inp(),
-    Ipe = new ipe(),
-    Unp = new unp();
-var Angle = new angle(),
-    Round_Bar = new roundBar('Round_Bar');
-var Metal_Sheet = new metalSheet(),
-    Hea = new hea();
-var Heb = new heb(),
-    Hem = new hem(),
-    Upe = new upe();
+var Inp = new inp(), Ipe = new ipe(), Unp = new unp();
+var Angle = new angle(), Round_Bar = new roundBar('Round_Bar');
+var Metal_Sheet = new metalSheet(), Hea = new hea();
+var Heb = new heb(), Hem = new hem(), Upe = new upe();
 var Hexagonal = new hex();
+
+
       </script>
     </body>
 </html>
