@@ -7,7 +7,7 @@
 using namespace std;
 FILE * file1;
 int main() {
-  int diameter, length, thickness;
+  int i, diameter, length, thickness;
   double pi, vol, pieces, weight, width, coefficient;
   string name, continu;
   time_t now = time(0);
@@ -24,100 +24,68 @@ int main() {
     thickness = 0;
     
     if (name == "inp") {
+    int Width [] ={80,100,120,140,160,180,
+200,240,260,280,300};
+    double coeficient [] ={6.1,8.5,11.5,14.7,18.5,
+22.5,27,37,43,49,56};
       cout << " Width ";
       cin >> width;
       cout << "  Total weight kg ";
       cin >> weight;
       cout << "Length ";
       cin >> length;
-      if (width == 80)
-        coefficient = 6.1;
-      if (width == 100)
-        coefficient = 8.5;
-      if (width == 120)
-        coefficient = 11.5;
-      if (width == 140)
-        coefficient = 14.7;
-      if (width == 160)
-        coefficient = 18.5;
-      if (width == 180)
-        coefficient = 22.5;
-      if (width == 200)
-        coefficient = 27;
-      if (width == 240)
-        coefficient = 37;
-      if (width == 260)
-        coefficient = 43;
-      if (width == 280)
-        coefficient = 49;
-      if (width == 300)
-        coefficient = 56;
+    for (i=0;i<sizeof(Width);i++)
+    {
+      if (width == Width[i])
+        coefficient = coeficient[i];
+       } 
+      
       pieces = weight / length / coefficient;
       cout << "Pieces " << pieces;
     }
     if (name == "ipe") {
+    int Width [] ={80,100,120,140,160,180,
+200,220,240,270,300};
+    double coeficient [] ={6.2,8.3,10.7,
+    13.2,16.2,19.3,23,26.9,31.5,37,43.3};
       cout << " Width ";
       cin >> width;
       cout << " Total weight ";
       cin >> weight;
       cout << "Length ";
       cin >> length;
-      if (width == 80)
-        coefficient = 6.2;
-      if (width == 100)
-        coefficient = 8.3;
-      if (width == 120)
-        coefficient = 10.7;
-      if (width == 140)
-        coefficient = 13.2;
-      if (width == 160)
-        coefficient = 16.2;
-      if (width == 180)
-        coefficient = 19.3;
-      if (width == 200)
-        coefficient = 23;
-      if (width == 220)
-        coefficient = 26.9;
-      if (width == 240)
-        coefficient = 31.5;
-      if (width == 270)
-        coefficient = 37;
-      if (width == 300)
-        coefficient = 43.3;
+    for (i=0;i<sizeof(Width);i++)
+    {
+      if (width == Width[i])
+        coefficient = coeficient[i];
+       } 
+      
       pieces = weight / length / coefficient;
       cout << "Pieces " << pieces;
     }
     if (name == "unp") {
+    int Width [] ={80,100,120,140,160,180,
+200,220,240,300};
+    double coeficient [] ={8.9,10.9,
+13.7,16.4,19.3,22.5,26,30,33.2,46.2};
       cout << " Width ";
       cin >> width;
       cout << " Total weight ";
       cin >> weight;
       cout << "Length ";
       cin >> length;
-      if (width == 80)
-        coefficient = 8.9;
-      if (width == 100)
-        coefficient = 10.9;
-      if (width == 120)
-        coefficient = 13.7;
-      if (width == 140)
-        coefficient = 16.4;
-      if (width == 160)
-        coefficient = 19.3;
-      if (width == 180)
-        coefficient = 22.5;
-      if (width == 200)
-        coefficient = 26;
-      if (width == 220)
-        coefficient = 30;
-      if (width == 240)
-        coefficient = 33.2;
-      if (width == 300)
-        coefficient = 46.2;
+    for (i=0;i<sizeof(Width);i++)
+    {
+      if (width == Width[i])
+        coefficient = coeficient[i];
+       } 
+      
       pieces = weight / length / coefficient;
       cout << "Pieces " << pieces;
     }
     if (name == "an") {
+    
+    
       cout << "Width ";
       cin >> width;
       cout << "Thickness ";
@@ -126,6 +94,7 @@ int main() {
       cin >> weight;
       cout << "Length ";
       cin >> length;
+      
       if (width == 20)
         coefficient = 0.884;
       if (width == 25) {
@@ -255,6 +224,7 @@ int main() {
         if (thickness == 24)
           coefficient = 71.901;
       }
+      
       pieces = weight / coefficient / length;
       cout << "Pieces " << pieces;
     }
