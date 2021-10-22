@@ -6,6 +6,7 @@ namespace letcode
     {
         static void Main()
         {
+            Console.WriteLine("Enter a roman number:");
             string s = Console.ReadLine();
             int number = 0;
             for (int i = 0; i < s.Length; i++)
